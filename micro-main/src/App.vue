@@ -1,14 +1,14 @@
 <template>
-  <div id="app">
+  <div>
     <el-menu :router="true" mode="horizontal">
       <!-- 基座-放置主框架自己的东西 -->
       <el-menu-item index="/">主页</el-menu-item>
       <el-menu-item index="/one">子应用</el-menu-item>
       <el-menu-item index="/two">子应用</el-menu-item>
+      <el-menu-item index="/vue3">vue3</el-menu-item>
     </el-menu>
     <router-view />
-    <div id="one"></div>
-    <div id="two"></div>
+    <div id="container"></div>
   </div>
 </template>
 
