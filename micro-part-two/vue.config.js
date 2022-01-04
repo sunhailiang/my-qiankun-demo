@@ -1,7 +1,7 @@
 module.exports = {
   publicPath: "//localhost:8082", // 静态资源指回原有自己的服务器，而不是被主框架读过去后用了主框架的静态资源
   devServer: {
-    port: "8081",
+    port: "8082",
     headers: {
       "Access-Control-Allow-Origin": "*", // 允许主框架读取资源
     },

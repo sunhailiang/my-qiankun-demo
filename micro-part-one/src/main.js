@@ -3,17 +3,22 @@ import App from "./App.vue";
 import routes from "./router";
 import store from "./store";
 import VueRouter from "vue-router";
+import actions from "./actions";
 
 Vue.config.productionTip = false;
 
 // 确保主项目切到子项目路由时再去挂载项目
 let router = null;
 let app = null;
+const isQiankun = window.__POWERED_BY_QIANKUN__;
 function render(props = {}) {
+  if (props) {
+    actions.setActions(props);
+  }
   const { container } = props;
   router = new VueRouter({
-    base: window.__POWERED_BY_QIANKUN__ ? "/one/" : "/", // 如果是在主项目中被加载应用时，则改成跟主应用一样的base路由，否则，就按照本地的规则
-    mode: "history",
+    base: isQiankun ? "/one/" : "/", // 如果是在主项目中被加载应用时，则改成跟主应用一样的base路由，否则，就按照本地的规则
+    mode: isQiankun ? "history" : "hash",
     routes,
   });
   app = new Vue({
@@ -24,7 +29,7 @@ function render(props = {}) {
 }
 
 //独立运行，__POWERED_BY_QIANKUN__这个属性是乾坤暴露在windows上，判断当前的应用运行环境，如果不在乾坤中则独立运行，否则那就在乾坤之行钩子函数时执行渲染
-if (!window.__POWERED_BY_QIANKUN__) {
+if (!isQiankun) {
   render();
 }
 // 必须暴露这些钩子函数
